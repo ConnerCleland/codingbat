@@ -41,12 +41,14 @@ class CatDogTestCase(TestCase):
 
 
 class LoneSumTestCase(TestCase):
-    def test_lone_sum(self):
+    def test_lone_sum_with_no_repeated_values(self):
         response = self.client.get(reverse("lone_sum", args=[1, 2, 3]))
         self.assertEqual(json.loads(response.content)["result"], 6)
 
+    def test_lone_sum_with_all_values_repeated(self):
         response = self.client.get(reverse("lone_sum", args=[3, 3, 3]))
         self.assertEqual(json.loads(response.content)["result"], 0)
 
-        response = self.client.get(reverse("lone_sum", args=[4, 3, 2]))
-        self.assertEqual(json.loads(response.content)["result"], 9)
+    def test_lone_sum_with_some_values_repeated(self):
+        response = self.client.get(reverse("lone_sum", args=[3, 2, 3]))
+        self.assertEqual(json.loads(response.content)["result"], 2)

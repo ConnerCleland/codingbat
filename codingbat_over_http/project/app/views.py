@@ -25,5 +25,8 @@ def cat_dog(request: HttpRequest, s: str) -> HttpResponse:
 
 @require_GET
 def lone_sum(request: HttpRequest, a: int, b: int, c: int) -> HttpResponse:
-    result = a + b + c if a != b and b != c and a != c else 0
+    if a != b and b != c and a != c:
+        result = a + b + c
+    else:
+        result = 0 if a == b == c else a if b == c else b if a == c else c
     return HttpResponse(json.dumps({"result": result}), content_type="application/json")
